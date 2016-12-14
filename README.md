@@ -30,19 +30,23 @@ GET request (get product information):
 
 ```irb
 % irb
-   >> keys = {"consumer_key"=>"your_consumer_key", "consumer_secret"=>"your_consumer_secret", "token"=>"your_token", "token_secret"=>"your_token_secret"}
-   >> json_response = RestfullOauth::connect('GET','https://your server/rest/api', keys)
+   >> require 'restfull_oauth'
+   >> service = RestfullOauth::Connection.new({"consumer_key"=>"your_consumer_key", "consumer_secret"=>"your_consumer_secret", "token"=>"your_token", "token_secret"=>"your_token_secret"})
+   >> response = service.connect('GET','https://your server/rest/api', keys)
    => #<Net::HTTPOK 200 OK readbody=true>
+   >> puts JSON.parse(response.body).to_yaml
 ```
 
 POST request (assign product to website):
 
 ```irb
 % irb
-   >> keys = {"consumer_key"=>"your_consumer_key", "consumer_secret"=>"your_consumer_secret", "token"=>"your_token", "token_secret"=>"your_token_secret"}
-   >> post_data = {'website_id' => 1 }.to_json
-   >> json_response = RestfullOauth::connect('POST','https://your server/rest/api', keys, post_data)
+   >> require 'restfull_oauth'
+   >> service = RestfullOauth::Connection.new({"consumer_key"=>"your_consumer_key", "consumer_secret"=>"your_consumer_secret", "token"=>"your_token", "token_secret"=>"your_token_secret"})
+   >> post_data = {'foo' => 'bar' }.to_json
+   >> response = RestfullOauth::connect('POST','https://your server/rest/api', post_data)
    => #<Net::HTTPOK 200 OK readbody=true>
+   >> puts JSON.parse(response.body).to_yaml
 ```
 
 PUT requests work in the same way as POST requests

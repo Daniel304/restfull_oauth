@@ -26,8 +26,6 @@ module RestfullOauth
 #   >> puts JSON.parse(response.body).to_yaml
 
   class Connection 
-    attr_accessor :session, :config, :logger
-
     def initialize(config = {})
       @config = config
       self
@@ -99,7 +97,7 @@ module RestfullOauth
         headers = { 'Authorization' => header,
                     'Content-Type' => 'application/json'
                   }
-        headers.each do |key|
+        headers.keys.each do |key|
           request[key] = headers[key]
         end
         request.body = post_data
